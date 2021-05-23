@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/Stylesheet.css}"/>
+    <title>Title</title>
+</head>
+<div th:replace="header">...</div>
+<body>
+<div class="container">
+    <h1>Project manager</h1>
+    <a href="/create-project" class="button">Create</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Project Budget</th>
+            <th>Project Deadline</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project: ${projectList}">
+            <td th:text="${project.projectID}"></td>
+            <td th:text="${project.projectName}"></td>
+            <td th:text="${project.projectBudget}"></td>
+            <td th:text="${project.projectDeadline}"></td>
+            <td>
+                <a th:href="@{/add-task(id=${project.projectID})}"class="button">Add Task</a>
+                <a th:href="@{/delete-project(id=${project.projectID})}"class="button">Delete</a>
+                <a th:href="@{/edit-project(id=${project.projectID})}"class="button">Edit project</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

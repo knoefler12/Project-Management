@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/Stylesheet.css}"/>
+</head>
+<div th:replace="header">...</div>
+<body>
+<div class="container">
+    <h1>Edit these values</h1>
+    <h2 th:text="'Sub-Task name: '+ ${subTask.subTaskName}"></h2>
+    <form action="#" th:action="@{/edit-sub-task-process}" th:object="${subTaskData}" method="post">
+        <label for="project-name">Insert new project name</label>
+        <input type="text" id="project-name" th:field="*{subTaskName}">
+        <label for="sub-task-cost">Insert the cost of the subtask</label>
+        <input type="number" id="sub-task-cost" th:field="*{subTaskCost}">
+        <input type="submit" value="Submit" class="button">
+    </form>
+</div>
+</body>
+</html>

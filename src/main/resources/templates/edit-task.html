@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/Stylesheet.css}"/>
+</head>
+<div th:replace="header">...</div>
+<body>
+<div class="container">
+    <h1>Edit these values</h1>
+    <h2 th:text="'Task Name: '+ ${task.taskName}"></h2>
+    <form action="#" th:action="@{/edit-task-process}" th:object="${taskData}" method="post">
+        <label for="project-name">Insert new project name</label>
+        <input type="text" id="project-name" th:field="*{taskName}">
+        <input type="submit" value="Submit" class="button">
+    </form>
+</div>
+</body>
+</html>

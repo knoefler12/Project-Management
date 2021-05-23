@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/Stylesheet.css}"/>
+</head>
+<div th:replace="header">...</div>
+<body>
+<div class="container">
+    <h1 th:text="'Add Tasks to task: '+ ${taskID.taskName}"></h1>
+    <form action="#" th:action="@{/add-sub-task-process}" th:object="${subTaskData}" method="post">
+        <label for="sub-task-name">Insert sub-task name</label>
+        <input type="text" id="sub-task-name" th:field="*{subTaskName}">
+        <label for="sub-task-cost">Insert the cost of the subtask</label>
+        <input type="number" id="sub-task-cost" th:field="*{subTaskCost}">
+        <input type="submit" value="Submit" class="button">
+    </form>
+    <h2>Added Tasks</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Sub-Task ID</th>
+            <th>Sub-Task Name</th>
+            <th>Sub-Task Cost</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subTask: ${projectList}">
+            <td th:text="${subTask.subTaskID}"></td>
+            <td th:text="${subTask.subTaskName}"></td>
+            <td th:text="${subTask.subTaskCost}"></td>
+            <td>
+                <a th:href="@{/delete-sub-task(id=${subTask.subTaskID})}"class="button">Delete</a>
+                <a th:href="@{/edit-sub-task(id=${subTask.subTaskID})}"class="button">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

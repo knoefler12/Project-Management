@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/Stylesheet.css}"/>
+</head>
+<div th:replace="header">...</div>
+<body>
+<div class="container">
+    <form action="#" th:action="@{/create-project-process}" th:object="${projectData}" method="post">
+        <label for="project-name">Insert project name</label>
+        <input type="text" id="project-name" th:field="*{projectName}" required>
+        <label for="project-budget">Insert the budget for the project</label>
+        <input type="number" min="0" id="project-budget" value="0" th:field="*{projectBudget}" required>
+        <label for="project-deadline">Insert deadline date</label>
+        <input type="date" id="project-deadline" th:field="*{projectDeadline}" required>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
