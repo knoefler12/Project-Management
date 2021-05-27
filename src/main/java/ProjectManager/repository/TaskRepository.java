@@ -12,18 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskRepository implements iCrudRepository<TaskData> {
-    List<TaskData> tasks = new ArrayList<>();
 
-
-    public void create(String taskName, int projectID) throws SQLException {
+    //creates task
+    @Override
+    public void create(TaskData taskData) throws SQLException {
         Connection connection = null;
         try{
             connection = JDBC.JDBCconnect();
             PreparedStatement preparedStatement;
             String sql = "INSERT INTO `project_manager`.`tasks` (`task_name`,`project_id`) VALUES (?,?)";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,taskName);
-            preparedStatement.setInt(2,projectID);
+            preparedStatement.setString(1,taskData.getTaskName());
+            preparedStatement.setInt(2,taskData.getProjectID());
             preparedStatement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
@@ -34,7 +34,8 @@ public class TaskRepository implements iCrudRepository<TaskData> {
         }
     }
 
-    //gets task from id
+    //returns task from id
+    @Override
     public TaskData read(int id) throws SQLException{
         Connection connection = null;
         TaskData taskData = new TaskData();
@@ -56,8 +57,8 @@ public class TaskRepository implements iCrudRepository<TaskData> {
         return taskData;
     }
 
+
     //returns all task from specific projectID
-    //@Override
     public List<TaskData> getList(int id) throws SQLException {
         List<TaskData> list = new ArrayList<>();
         Connection connection = null;
@@ -83,6 +84,7 @@ public class TaskRepository implements iCrudRepository<TaskData> {
         return list;
     }
 
+    //updates taskcost
     public void updateTaskCost(int taskCost, int taskID) throws SQLException {
         Connection connection = null;
         try{
@@ -101,12 +103,9 @@ public class TaskRepository implements iCrudRepository<TaskData> {
         }
     }
 
+    //edit task
     @Override
-    public List<TaskData> readAll() {
-        return tasks;
-    }
-
-   public void update(TaskData taskData) throws SQLException{
+    public void update(TaskData taskData) throws SQLException{
         Connection connection = null;
         try {
             connection = JDBC.JDBCconnect();
@@ -125,7 +124,9 @@ public class TaskRepository implements iCrudRepository<TaskData> {
         }
    }
 
-    public void delete(int id) throws SQLException{
+   //deletes task from id
+   @Override
+   public void delete(int id) throws SQLException{
         Connection connection = null;
         try{
             connection = JDBC.JDBCconnect();
@@ -143,10 +144,10 @@ public class TaskRepository implements iCrudRepository<TaskData> {
         }
     }
 
+    //gets sum of the cost of all the tasks
     public TaskData getCostOfTasks(int id) throws SQLException {
         Connection connection = null;
         TaskData taskData = new TaskData();
-        int sum=0;
         try{
             connection = JDBC.JDBCconnect();
             String sql = "SELECT SUM(task_cost) as task_cost FROM `project_manager`.`tasks` WHERE project_id = ?";

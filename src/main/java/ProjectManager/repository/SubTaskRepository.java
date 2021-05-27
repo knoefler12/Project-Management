@@ -13,19 +13,19 @@ import java.util.List;
 
 public class SubTaskRepository implements iCrudRepository<SubTaskData>{
 
-    List<SubTaskData> subTasks=new ArrayList<>();
 
-
-   public void create(String subTaskName, int taskID, int subTaskCost) throws SQLException {
+    //creates subtask
+    @Override
+    public void create(SubTaskData subTaskData) throws SQLException {
        Connection connection = null;
        try {
            connection = JDBC.JDBCconnect();
            PreparedStatement preparedStatement;
            String sql = "INSERT INTO `project_manager`.`subtasks` (`subtask_name`,`task_id`, `subtask_cost`) VALUES (?,?,?)";
            preparedStatement = connection.prepareStatement(sql);
-           preparedStatement.setString(1, subTaskName);
-           preparedStatement.setInt(2, taskID);
-           preparedStatement.setInt(3, subTaskCost);
+           preparedStatement.setString(1, subTaskData.getSubTaskName());
+           preparedStatement.setInt(2, subTaskData.getTaskID());
+           preparedStatement.setInt(3, subTaskData.getSubTaskCost());
            preparedStatement.executeUpdate();
        }catch (SQLException e){
            e.printStackTrace();
@@ -36,6 +36,8 @@ public class SubTaskRepository implements iCrudRepository<SubTaskData>{
        }
     }
 
+    //returns subtask from id
+    @Override
     public SubTaskData read(int id) throws SQLException{
        Connection connection = null;
        SubTaskData subTaskData = new SubTaskData();
@@ -57,7 +59,7 @@ public class SubTaskRepository implements iCrudRepository<SubTaskData>{
        return subTaskData;
     }
 
-    //@Override
+    //returns subtasks from specific taskID
     public List<SubTaskData> getList(int id) throws SQLException {
        List<SubTaskData> list = new ArrayList<>();
        Connection connection = null;
@@ -84,11 +86,8 @@ public class SubTaskRepository implements iCrudRepository<SubTaskData>{
        return list;
     }
 
+    //edit task
     @Override
-    public List<SubTaskData> readAll() {
-        return subTasks;
-    }
-
     public void update(SubTaskData subTaskData) throws SQLException {
        Connection connection = null;
        try{
@@ -130,6 +129,8 @@ public class SubTaskRepository implements iCrudRepository<SubTaskData>{
         return sum;
     }
 
+    //deletes subtask
+    @Override
     public void delete(int id) throws SQLException{
         Connection connection=null;
         try{

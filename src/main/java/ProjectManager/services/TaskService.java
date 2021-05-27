@@ -11,12 +11,11 @@ import java.util.List;
 @Service
 public class TaskService {
 
-    //make autowired
-    //@Autowired
+    //Service lag for taskRepository
     TaskRepository taskRepository = new TaskRepository();
 
-    public void create(String taskName, int projectID) throws SQLException {
-        taskRepository.create(taskName,projectID);
+    public void create(TaskData taskData) throws SQLException {
+        taskRepository.create(taskData);
     }
 
     public List<TaskData> getList(int id) throws SQLException {
@@ -29,10 +28,6 @@ public class TaskService {
 
     public TaskData getCostOfTasks(int id) throws SQLException {
         return taskRepository.getCostOfTasks(id);
-    }
-
-    public List<TaskData> readAll(){
-        return taskRepository.readAll();
     }
 
     public void update(TaskData taskData) throws SQLException {

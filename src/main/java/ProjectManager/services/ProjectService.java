@@ -10,8 +10,7 @@ import java.util.List;
 @Service
 public class ProjectService {
 
-    //make autowired
-    //@Autowired
+    //Service lag for projectRepository
     ProjectRepository projectRepository = new ProjectRepository();
 
 
@@ -31,7 +30,7 @@ public class ProjectService {
         projectRepository.delete(id);
     }
 
-    public void create2(ProjectData ProjectData) throws SQLException {
+    public void create(ProjectData ProjectData) throws SQLException {
         projectRepository.create(ProjectData);
     }
 }

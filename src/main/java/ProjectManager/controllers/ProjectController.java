@@ -20,18 +20,18 @@ import java.time.LocalDate;
 
 @Controller
 public class ProjectController {
+    //Session ids, to keep track of which id to use
     private int projectID;
     private int taskID;
     private int subTaskID;
-    private TaskData taskDataSession;
-    //make it autowired
-    //@Autowired
+
+    //Service layer
     ProjectService projectService = new ProjectService();
     TaskService taskService = new TaskService();
     SubService subTaskService = new SubService();
 
 
-    //Projects
+    //***** Projects *****//
 
     @GetMapping("/")
     public String home(Model model) throws SQLException {
@@ -50,7 +50,7 @@ public class ProjectController {
         String projectName = request.getParameter("projectName");
         int projectBudget = Integer.parseInt(request.getParameter("projectBudget"));
         LocalDate projectDeadline = LocalDate.parse(request.getParameter("projectDeadline"));
-        projectService.create2(new ProjectData(projectName, projectBudget, projectDeadline));
+        projectService.create(new ProjectData(projectName, projectBudget, projectDeadline));
         return "redirect:/";
     }
 
@@ -77,7 +77,7 @@ public class ProjectController {
     }
 
 
-    //Tasks
+    //***** Tasks *****//
 
     @GetMapping("/add-task")
     public String addTask(@RequestParam("id") int id, Model model) throws SQLException {
@@ -92,7 +92,7 @@ public class ProjectController {
     @PostMapping("/add-task-process")
     public String addTaskProcess(HttpServletRequest request) throws SQLException {
         String taskName = request.getParameter("taskName");
-        taskService.create(taskName, projectID);
+        taskService.create(new TaskData(taskName, projectID));
         return "redirect:/add-task?id="+projectID;
     }
 
@@ -119,7 +119,8 @@ public class ProjectController {
         return "redirect:/add-task?id="+projectID;
     }
 
-    //Sub-Tasks
+
+    //***** Sub-Tasks *****//
 
     @GetMapping("/add-sub-task")
     public String addSubTask(@RequestParam("id") int id, Model model) throws SQLException {
@@ -134,7 +135,7 @@ public class ProjectController {
     public String addSubTaskProcess(HttpServletRequest request) throws SQLException {
         String subTaskName = request.getParameter("subTaskName");
         int subTaskCost = Integer.parseInt(request.getParameter("subTaskCost"));
-        subTaskService.create(subTaskName, taskID, subTaskCost);
+        subTaskService.create(new SubTaskData(subTaskName, taskID, subTaskCost));
         taskService.updateTaskCost(subTaskService.getCostOfSubTasks(taskID),taskID);
         return "redirect:/add-sub-task?id="+taskID;
     }

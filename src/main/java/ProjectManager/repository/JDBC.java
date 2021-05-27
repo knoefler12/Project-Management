@@ -9,12 +9,14 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class JDBC {
+    //Database connection information
     private static String user;
     private static String pwd;
     private static String url;
 
 
 
+    //Starts connection to database
     public static Connection JDBCconnect() throws SQLException {
 
         try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {

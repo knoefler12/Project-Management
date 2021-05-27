@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProjectRepository implements iCrudRepository<ProjectData>{
 
-    List<ProjectData> projects = new ArrayList<>();
 
 
     //creates project
+    @Override
     public void create(ProjectData projectData) throws SQLException {
         Connection connection = null;
         try{
@@ -36,7 +36,7 @@ public class ProjectRepository implements iCrudRepository<ProjectData>{
 
 
     //gets project from id
-    //@Override
+    @Override
     public ProjectData read(int id) throws SQLException {
             ProjectData projectData = new ProjectData();
             Connection connection = JDBC.JDBCconnect();
@@ -59,8 +59,7 @@ public class ProjectRepository implements iCrudRepository<ProjectData>{
     }
 
 
-    //returns an array of the projects
-    @Override
+    //returns an arraylist of the projects
     public List<ProjectData> readAll() throws SQLException {
         List<ProjectData> list = new ArrayList<>();
         Connection connection = null;
@@ -87,7 +86,8 @@ public class ProjectRepository implements iCrudRepository<ProjectData>{
         return list;
     }
 
-    //deletes project
+    //deletes project selected by id
+    @Override
     public void delete(int id) throws SQLException{
         Connection connection=null;
         try{
@@ -107,6 +107,8 @@ public class ProjectRepository implements iCrudRepository<ProjectData>{
         }
     }
 
+    //edits project
+    @Override
     public void update(ProjectData projectData) throws SQLException{
         Connection connection = null;
         try{

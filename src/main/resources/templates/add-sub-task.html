@@ -11,9 +11,9 @@
     <h1 th:text="'Add Tasks to task: '+ ${taskID.taskName}"></h1>
     <form action="#" th:action="@{/add-sub-task-process}" th:object="${subTaskData}" method="post">
         <label for="sub-task-name">Insert sub-task name</label>
-        <input type="text" id="sub-task-name" th:field="*{subTaskName}">
+        <input type="text" id="sub-task-name" th:field="*{subTaskName}" required>
         <label for="sub-task-cost">Insert the cost of the subtask</label>
-        <input type="number" id="sub-task-cost" th:field="*{subTaskCost}">
+        <input type="number" id="sub-task-cost" th:field="*{subTaskCost}" required>
         <input type="submit" value="Submit" class="button">
     </form>
     <h2>Added Tasks</h2>
