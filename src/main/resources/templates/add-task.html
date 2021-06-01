@@ -8,7 +8,7 @@
 <div th:replace="header">...</div>
 <body>
     <div class="container">
-        <h1 th:text="'Add Tasks to project: '+ ${projectID.projectName}"></h1>
+        <h1 th:text="'Add Tasks to project: '+ ${projectID.projectName}"> </h1> <a th:href="@{/}"class="button">Go back</a>
         <h3 th:text="'The difference  between budget and the total cost is: ' + ${projectID.projectBudget - taskCost.taskCost}"></h3>
         <h4 th:text="'Project Budget: '+${projectID.projectBudget}"></h4> <h4 th:text="'Total Task Cost: '+${taskCost.taskCost}"></h4>
 

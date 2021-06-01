@@ -49,6 +49,7 @@ public class SubTaskRepository implements iCrudRepository<SubTaskData>{
            ResultSet resultSet = preparedStatement.executeQuery();
            resultSet.next();
            subTaskData.setSubTaskName(resultSet.getString("subtask_name"));
+           subTaskData.setTaskID(resultSet.getInt("task_id"));
        }catch (SQLException e){
            e.printStackTrace();
        }finally {

@@ -124,9 +124,10 @@ public class ProjectController {
 
     @GetMapping("/add-sub-task")
     public String addSubTask(@RequestParam("id") int id, Model model) throws SQLException {
-        model.addAttribute("taskID",taskService.read(id));
+        model.addAttribute("taskName",taskService.read(id));
         model.addAttribute("subTaskData",new SubTaskData());
         model.addAttribute("projectList", subTaskService.getList(id));
+        model.addAttribute("projectID",projectID);
         taskID=id;
         return "add-sub-task.html";
     }

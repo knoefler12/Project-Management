@@ -8,15 +8,18 @@
 <div th:replace="header">...</div>
 <body>
 <div class="container">
-    <h1 th:text="'Add Tasks to task: '+ ${taskID.taskName}"></h1>
+    <h1 th:text="'Add subtasks to task: '+ ${taskName.taskName}"></h1>
+    <a th:href="@{/add-task(id=${projectID})}"class="button"> Go back</a>
+    <br><br>
     <form action="#" th:action="@{/add-sub-task-process}" th:object="${subTaskData}" method="post">
         <label for="sub-task-name">Insert sub-task name</label>
         <input type="text" id="sub-task-name" th:field="*{subTaskName}" required>
+        <br><br>
         <label for="sub-task-cost">Insert the cost of the subtask</label>
         <input type="number" id="sub-task-cost" th:field="*{subTaskCost}" required>
         <input type="submit" value="Submit" class="button">
     </form>
-    <h2>Added Tasks</h2>
+    <h2>Added subtasks</h2>
     <table>
         <thead>
         <tr>

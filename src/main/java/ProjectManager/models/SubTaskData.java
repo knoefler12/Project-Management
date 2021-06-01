@@ -6,21 +6,26 @@ public class SubTaskData {
     //Attributes
     private int subTaskID;
     private String subTaskName;
+
     private int taskID;
+
     private int subTaskCost;
 
-
     //Setters
+
     public void setSubTaskCost(int subTaskCost) {
         this.subTaskCost = subTaskCost;
     }
-
     public void setSubTaskName(String subTaskName) {
         this.subTaskName = subTaskName;
     }
 
     public void setSubTaskID(int subTaskID) {
         this.subTaskID = subTaskID;
+    }
+
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
     }
 
 
